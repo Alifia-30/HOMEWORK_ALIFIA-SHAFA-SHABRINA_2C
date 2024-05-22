@@ -1,38 +1,74 @@
-data = []
-def insert():
+stok = []
 
-    nama = input('nama barang : ')
-    stok = int(input('stok barang : '))
-    data_baru = {'nama : ',nama,'stok : ',stok}
-    data.append(data_baru)
-def view_data():
-    if not data:
-       print('='*6,'Stok barang Kosong','='*6)
-    else:    
-     for i in data :
-        print('-',i['nama'],i['stok'])
-def hapus_data():
-    id = int(input('Hapus data index ke : '))
-    del data[id]
-    print('hapus data berhasil')
-def edit_data():
-    view_data()
-    id = int(input('Masukan data yang akan diedit: '))
-    if 0 <= id and id < len(data):
-        print(f'Edit data {data[id]["nama"]}')
-        new_nama = input('Nama baru: ')
-        new_stok = int(input('stok baru: '))
-        data[id]['nama'] = new_nama
-        data[id]['stok'] = new_stok
-        print(f'Data {id} berhasil di edit')
+def add_barang():
+    input_nama = input("Masukkan nama barang : ").title()
+    input_stok = int(input("Masukkan stok barang : "))
+    item = {'nama' : input_nama, 'stok' : input_stok}
+    stok.append(item)
+    print("==== Data berhasil ditambahkan ====")
+    return '\n'
+
+def edit_barang():
+    number = 1
+    if stok:
+        print("==== Data barang ====")
+        for i in stok:
+            print(f"{number}. {i['nama']} , Stok : {i['stok']}")
+            number += 1
+        print("============================")
+        index = int(input("Ubah data ke : "))
+        index -= 1
+        input_nama = input("Masukkan nama barang : ").title()
+        input_stok = int(input("Masukkan stok barang : "))
+        data_change = {'nama' : input_nama, 'stok' : input_stok}
+        stok[index] = data_change
+        print("==== Data berhasil diperbarui ====")
     else:
-        print('Gagal diedit')
-def jumlah_data():
-    print(f'total data: {len(data)}')
-def cari_data():
-    nama_cari = input('Masukan nama barang yang dicari: ')
-    for item in (data):
-        if nama_cari.lower() in item["nama"].lower():
-            print(f'- nama: {item["nama"]} stok: {item["stok"]}')
-        else:
-            print('data tidak ditemukan')
+        print("==== Data barang kosong ====")
+    return '\n'
+
+def delete_barang():
+    number = 1
+    if stok: 
+        print("==== Data barang ====")
+        for i in stok:
+            print(f"{number}. {i['nama']} , Stok : {i['stok']}")
+            number += 1
+        print("============================")
+        index = int(input("Hapus data ke : "))
+        index -= 1
+        del stok[index]
+        print("==== Data berhasil dihapus ====")
+    else:
+        print("==== Data barang kosong ====")
+    return '\n'
+
+def search_barang():
+    data_input = input("Cari nama barang : ").title()
+    number = 1
+    stock = []
+    for i in stok:
+        if data_input in i['nama']:
+            stock.append(i)
+    if stock:
+        for i in stock:
+            print(f"{number}. {i['nama']} , Stok : {i['stok']}")
+            number += 1
+    else:
+        print("==== Data barang tidak ditemukan ====")
+    return '\n'
+
+def list_barang():
+    number = 1
+    if stok:
+        print("--- Data barang ---")
+        for i in stok:
+            print(f"{number}. {i['nama']} , Stok : {i['stok']}")
+            number += 1
+    else:
+        print("==== Data barang kosong ====")
+    return '\n'
+
+def total_barang():
+    print(f"Jumlah data tersimpan : {len(stok)}")
+    return '\n'
